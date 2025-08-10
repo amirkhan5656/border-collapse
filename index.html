@@ -37,7 +37,6 @@
     gap: 24px;
   }
 
-  /* For larger screens, show 2 per row */
   @media (min-width: 768px) {
     .case-container {
       grid-template-columns: 1fr 1fr;
@@ -59,7 +58,7 @@
   table {
     margin-top: 10px;
     width: 100%;
-    border-spacing: 0;
+    border-spacing: 4px; /* <-- Added spacing to show borders better in separate mode */
   }
 
   td {
@@ -67,34 +66,56 @@
     text-align: left;
   }
 
-  /* Border styles */
+  /* Base collapse class */
   .collapse-only {
     border-collapse: collapse;
+    border-spacing: 0; /* Remove spacing when collapsed */
   }
 
+  /* Table border only (orange) */
   .table-border {
     border: 2px solid orange;
   }
 
+  /* Cell border only (green) */
   .cell-border td {
-    border: 2px solid green;
+    border: 2px solid limegreen;
   }
 
+  /* Table and cell borders with separate (may overlap) */
   .full-border {
-    border: 2px solid red;
+    border: 2px solid orange;
   }
 
   .full-border td {
-    border: 2px solid red;
+    border: 2px solid limegreen;
   }
 
+  /* Table and cell borders with collapse */
   .full-border-collapse {
-    border: 2px solid #00c853;
+    border: 2px solid orange;
     border-collapse: collapse;
+    border-spacing: 0;
   }
 
   .full-border-collapse td {
-    border: 2px solid #00c853;
+    border: 2px solid limegreen;
+  }
+
+  /* Collapsed table border only */
+  .table-border.collapse-only {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+
+  /* Collapsed cell border only */
+  .cell-border.collapse-only {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+
+  .cell-border.collapse-only td {
+    border: 2px solid limegreen;
   }
 
   /* Responsive font size for small screens */
@@ -105,6 +126,8 @@
   }
 </style>
 
+
+
 </head>
 <body>
 
@@ -114,7 +137,6 @@
   <ul>
     <li>This page shows how <code>border</code> and <code>border-collapse</code> affect HTML tables.</li>
     <li>We use the same doctor appointment data in each example.</li>
-    <li>Dark mode is enabled by default for better readability.</li>
     <li>Each case highlights a different combination of border and collapse.</li>
   </ul>
 
