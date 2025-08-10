@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🎯 Table Borders & Border-Collapse Explained (Dark Mode Responsive)</title>
+  <style>
+  /* Dark mode defaults */
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #121212;
+    color: #e0e0e0;
+    padding: 20px;
+  }
+
+  h1 {
+    text-align: center;
+    color: #00e5ff;
+    margin-bottom: 30px;
+  }
+
+  h2 {
+    font-size: 1.1em;
+    color: #80d8ff;
+    margin-bottom: 10px;
+  }
+
+  ul {
+    padding-left: 20px;
+    margin-bottom: 40px;
+  }
+
+  .case-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  /* For larger screens, show 2 per row */
+  @media (min-width: 768px) {
+    .case-container {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .case {
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    transition: transform 0.2s;
+  }
+
+  .case:hover {
+    transform: scale(1.01);
+  }
+
+  table {
+    margin-top: 10px;
+    width: 100%;
+    border-spacing: 0;
+  }
+
+  td {
+    padding: 8px;
+    text-align: left;
+  }
+
+  /* Border styles */
+  .collapse-only {
+    border-collapse: collapse;
+  }
+
+  .table-border {
+    border: 2px solid orange;
+  }
+
+  .cell-border td {
+    border: 2px solid green;
+  }
+
+  .full-border {
+    border: 2px solid red;
+  }
+
+  .full-border td {
+    border: 2px solid red;
+  }
+
+  .full-border-collapse {
+    border: 2px solid #00c853;
+    border-collapse: collapse;
+  }
+
+  .full-border-collapse td {
+    border: 2px solid #00c853;
+  }
+
+  /* Responsive font size for small screens */
+  @media (max-width: 600px) {
+    table, td {
+      font-size: 14px;
+    }
+  }
+</style>
+
+</head>
+<body>
+
+  <h1>🎯 Doctor Appointment Table - Border & Collapse Cases</h1>
+
+  <h2>📌 Overview</h2>
+  <ul>
+    <li>This page shows how <code>border</code> and <code>border-collapse</code> affect HTML tables.</li>
+    <li>We use the same doctor appointment data in each example.</li>
+    <li>Dark mode is enabled by default for better readability.</li>
+    <li>Each case highlights a different combination of border and collapse.</li>
+  </ul>
+
+  <!-- Shared table content -->
+  <template id="table-content">
+    <tr>
+      <td>Dr. Smith</td>
+      <td>2025-08-11</td>
+      <td>10:00 AM</td>
+    </tr>
+    <tr>
+      <td>Dr. Johnson</td>
+      <td>2025-08-12</td>
+      <td>2:00 PM</td>
+    </tr>
+    <tr>
+      <td>Dr. Lee</td>
+      <td>2025-08-13</td>
+      <td>9:00 AM</td>
+    </tr>
+  </template>
+
+  <div class="case-container">
+
+  <!-- CASE 1 -->
+  <div class="case">
+    <h2>1️⃣ No Border on Table or Cells (Default: <code>border-collapse: separate</code>)</h2>
+    <table>
+      <tbody>
+        <tr><td>Dr. Smith</td><td>2025-08-11</td><td>10:00 AM</td></tr>
+        <tr><td>Dr. Johnson</td><td>2025-08-12</td><td>2:00 PM</td></tr>
+        <tr><td>Dr. Lee</td><td>2025-08-13</td><td>9:00 AM</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- CASE 2 -->
+  <div class="case">
+    <h2>2️⃣ No Border, But with <code>border-collapse: collapse</code> (Still No Visual Effect)</h2>
+    <table class="collapse-only">
+      <tbody>
+        <tr><td>Dr. Smith</td><td>2025-08-11</td><td>10:00 AM</td></tr>
+        <tr><td>Dr. Johnson</td><td>2025-08-12</td><td>2:00 PM</td></tr>
+        <tr><td>Dr. Lee</td><td>2025-08-13</td><td>9:00 AM</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- CASE 3 -->
+  <div class="case">
+    <h2>3️⃣ Border on Table Only, No Cell Borders, No Collapse</h2>
+    <table class="table-border">
+      <tbody>
+        <tr><td>Dr. Smith</td><td>2025-08-11</td><td>10:00 AM</td></tr>
+        <tr><td>Dr. Johnson</td><td>2025-08-12</td><td>2:00 PM</td></tr>
+        <tr><td>Dr. Lee</td><td>2025-08-13</td><td>9:00 AM</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- CASE 4 -->
+  <div class="case">
+    <h2>4️⃣ Border on Cells Only, No Table Border, No Collapse</h2>
+    <table class="cell-border">
+      <tbody>
+        <tr><td>Dr. Smith</td><td>2025-08-11</td><td>10:00 AM</td></tr>
+        <tr><td>Dr. Johnson</td><td>2025-08-12</td><td>2:00 PM</td></tr>
+        <tr><td>Dr. Lee</td><td>2025-08-13</td><td>9:00 AM</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- CASE 5 -->
+  <div class="case">
+    <h2>5️⃣ Border on Table and Cells, But No Collapse (Borders May Overlap)</h2>
+    <table class="full-border">
+      <tbody>
+        <tr><td>Dr. Smith</td><td>2025-08-11</td><td>10:00 AM</td></tr>
+        <tr><td>Dr. Johnson</td><td>2025-08-12</td><td>2:00 PM</td></tr>
+        <tr><td>Dr. Lee</td><td>2025-08-13</td><td>9:00 AM</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- CASE 6 -->
+  <div class="case">
+    <h2>6️⃣ Border on Table and Cells with <code>border-collapse: collapse</code></h2>
+    <table class="full-border-collapse">
+      <tbody>
+        <tr><td>Dr. Smith</td><td>2025-08-11</td><td>10:00 AM</td></tr>
+        <tr><td>Dr. Johnson</td><td>2025-08-12</td><td>2:00 PM</td></tr>
+        <tr><td>Dr. Lee</td><td>2025-08-13</td><td>9:00 AM</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- CASE 7 -->
+  <div class="case">
+    <h2>7️⃣ Table Border Only with <code>border-collapse: collapse</code> (No Cell Borders)</h2>
+    <table class="table-border collapse-only">
+      <tbody>
+        <tr><td>Dr. Smith</td><td>2025-08-11</td><td>10:00 AM</td></tr>
+        <tr><td>Dr. Johnson</td><td>2025-08-12</td><td>2:00 PM</td></tr>
+        <tr><td>Dr. Lee</td><td>2025-08-13</td><td>9:00 AM</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- CASE 8 -->
+  <div class="case">
+    <h2>8️⃣ Cell Borders Only (No Table Border) with Default <code>border-collapse: separate</code></h2>
+    <table class="cell-border">
+      <tbody>
+        <tr><td>Dr. Smith</td><td>2025-08-11</td><td>10:00 AM</td></tr>
+        <tr><td>Dr. Johnson</td><td>2025-08-12</td><td>2:00 PM</td></tr>
+        <tr><td>Dr. Lee</td><td>2025-08-13</td><td>9:00 AM</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- CASE 9 -->
+  <div class="case">
+    <h2>9️⃣ Cell Borders Only (No Table Border) with <code>border-collapse: collapse</code></h2>
+    <table class="cell-border collapse-only">
+      <tbody>
+        <tr><td>Dr. Smith</td><td>2025-08-11</td><td>10:00 AM</td></tr>
+        <tr><td>Dr. Johnson</td><td>2025-08-12</td><td>2:00 PM</td></tr>
+        <tr><td>Dr. Lee</td><td>2025-08-13</td><td>9:00 AM</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+  <h2>📌 Conclusion: Understanding <code>border-collapse</code></h2>
+  <ul>
+    <li><strong>By default</strong>, HTML tables use <code>border-collapse: separate</code>, which creates space between adjacent borders and renders table and cell borders independently.</li>
+    <li>When <code>border-collapse: collapse</code> is applied, adjacent borders (from table and cells) are merged into a single border — giving a cleaner, tighter appearance.</li>
+    <li><strong>Without any borders</strong>, <code>border-collapse</code> has no visible effect.</li>
+    <li>If both table and cell borders exist, collapsing them avoids double borders and overlaps.</li>
+    <li>Using collapse is essential when designing clean, grid-like tables — especially when borders are involved on both the table and the cells.</li>
+    <li>If table has no border but cells have border then applying <code>border-collapse: collapse</code>, will only cause cell border to collapse to each other looking single cell border</li>
+  </ul>
+
+
+</body>
+</html>
